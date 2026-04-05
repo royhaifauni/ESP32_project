@@ -7,6 +7,7 @@ const char* ssid     = "Talv";  // <--- Change this
 const char* password = "http200OK";  // <--- Change this
 const char* pcIP     = "192.168.1.244";        // <--- Your Windows PC's IP address
 const int port       = 4210;                  // Target port
+const int sensorPin  = A2;                    // Water sensor on pin A2
 
 WiFiUDP udp;
 unsigned long lastSendTime = 0;
@@ -19,6 +20,7 @@ void sendUDPMessage(const char* message);
 // --- Main Setup ---
 void setup() {
   Serial.begin(115200);
+  pinMode(sensorPin, INPUT);
   connectToWiFi();
 }
 
@@ -29,8 +31,12 @@ void loop() {
   if (currentMillis - lastSendTime >= interval) {
     lastSendTime = currentMillis;
     
-    sendUDPMessage("HERE!!!!!");
-    Serial.println("Message sent to PC over Wi-Fi");
+    int sensorValue = analogRead(sensorPin);
+    String message = String(sensorValue);
+    
+    sendUDPMessage(message.c_str());
+    Serial.print("Sensor value sent: ");
+    Serial.println(sensorValue);
   }
 }
 
