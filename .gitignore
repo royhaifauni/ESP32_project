@@ -1,0 +1,18 @@
+# PlatformIO
+ESP32_code/.pio/
+ESP32_code/.vscode/
+!ESP32_code/.vscode/extensions.json
+
+# Python
+**/venv/
+**/__pycache__/
+**/*.py[cod]
+**/*.so
+**/.ipynb_checkpoints
+**/dist/
+**/build/
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
